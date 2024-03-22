@@ -48,19 +48,21 @@ public class PlayerController : MonoBehaviour
 
     private void EventAttack(GameObject target)
     {
-        if(target!=null)
+        if(target !=null)
         {
             attackTarget = target;
             StartCoroutine(MoveToAttackTarget());
         }
+
     }
 
     IEnumerator MoveToAttackTarget()
     {
         agent.isStopped = false;
-        transform.LookAt(attackTarget.transform);
 
-        while(Vector3.Distance(attackTarget.transform.position,transform.position)>1)
+        transform.LookAt(attackTarget.transform.position);
+
+        while(Vector3.Distance(attackTarget.transform.position,transform.position)>2)
         {
             agent.destination = attackTarget.transform.position;
             yield return null;
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
         if(lastAttackTime<0)
         {
             anim.SetTrigger("Attack");
-            //Reset Cooldown Time
+            //Reset Cooldown
             lastAttackTime = 0.5f;
         }
     }
